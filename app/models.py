@@ -17,7 +17,7 @@ class Admin(Base):
 
 class User(Base):
     __tablename__ = "users"
-    __table_args__ = (CheckConstraint("account_balance >= 0", name="ck_users_balance_non_negative"))
+    __table_args__ = (CheckConstraint("account_balance >= 0", name="ck_users_balance_non_negative"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str] = mapped_column(String(100))
@@ -46,7 +46,7 @@ class Product(Base):
 class Purchase(Base):
     __tablename__ = "purchases"
     __table_args__ = (CheckConstraint("litres > 0", name="ck_purchases_litres_positive"),
-                      Index("ix_purchases_user_created", "user_id", "created_at"))
+                      Index("ix_purchases_user_created", "user_id", "created_at"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
